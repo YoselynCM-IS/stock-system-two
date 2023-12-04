@@ -65,6 +65,9 @@
 		<a class="dropdown-item" href="{{ route('oficina.entradas-salidas') }}">
 			{{ __("Entradas / Salidas") }}
 		</a>
+		<a class="dropdown-item" href="{{ route('oficina.fecha-adeudo') }}">
+			{{ __("Fecha de adeudos") }}
+		</a>
 	</div>
 </li>
 @if(env('APP_NAME') == 'MAJESTIC EDUCATION')

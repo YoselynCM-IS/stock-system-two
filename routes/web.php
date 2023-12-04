@@ -142,6 +142,12 @@ Route::name('remisiones.')->prefix('remisiones')->group(function () {
     Route::post('save_responsable', 'RemisionController@save_responsable')->name('save_responsable');
     // Guardar informacion de envio de la remision
     Route::post('save_envio', 'RemisionController@save_envio')->name('save_envio');
+    
+    // BUSQUEDA DE MOROSOS
+    Route::name('morosos.')->prefix('morosos')->group(function () {
+        // Buscar por rango de fecha
+        Route::get('/by_rangofecha', 'RemisionController@by_rangofecha')->name('by_rangofecha');
+    });
 
     // HISTORIAL
     // Verificar que no exista el folio

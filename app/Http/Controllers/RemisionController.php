@@ -1419,6 +1419,35 @@ class RemisionController extends Controller
         return response()->json($responsables);
     }
 
+    // ---- BUSQUEDA DE MOROSOS
+    // BUSQUEDA POR RANGO DE FECHA
+    public function by_rangofecha(Request $request){
+        $type = $request->type;
+        $cliente_id = $request->cliente_id;
+        $hoy = Carbon::now();
+        $ids = collect();
+        
+        $rs = Remisione::whereNotIn('corte_id', [4])
+            ->whereNotIn('estado', ['Cancelado', 'Terminado'])->get();
+
+        if($cliente_id != NULL){
+            $rs = $rs = Remisione::where('cliente_id', $cliente_id)
+                ->whereNotIn('corte_id', [4])
+                ->whereNotIn('estado', ['Cancelado', 'Terminado'])->get();
+        }
+
+        $rs->map(function($r) use(&$ids, $type, $hoy){
+            $diff = $hoy->diffInDays($r->created_at);
+            if($diff >= $type[0] && $diff <= $type[1])
+                $ids->push($r->id);
+        });
+
+        $remisiones = Remisione::whereIn('id', $ids)
+                        ->orderBy('id','desc')->with('cliente')
+                        ->paginate(20);
+        return response()->json($remisiones);
+    }
+
 
     // HISTORIAL DE REMISIONES
     // LISTA DE REMISIONES

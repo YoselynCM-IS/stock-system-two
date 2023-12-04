@@ -52,6 +52,7 @@ Vue.http.interceptors.push((request, next) => {
 Vue.component('listado-component', require('./components/remisiones/ListadoComponent.vue').default);
 Vue.component('remision-component', require('./components/remisiones/RemisionComponent.vue').default);
 Vue.component('fecha-adeudo-component', require('./components/remisiones/FechaAdeudoComponent.vue').default);
+Vue.component('morosos-component', require('./components/remisiones/MorososComponent.vue').default);
 Vue.component('details-remision-component', require('./components/remisiones/DetailsRemisionComponent.vue').default);
 
 // PAGOS
